@@ -32,3 +32,34 @@ class Rectangle(Shape):
 
     def calculate_perimeter(self) -> int:
         return 2 * (self._length + self._width)
+
+import unittest
+from shape import Rectangle
+
+class TestRectangle(unittest.TestCase):
+    def setUp(self):
+        self.r = Rectangle("red", 5, 6)
+
+    def test_str(self):
+        expected = ("The shape color is red.\n"
+                    "This rectangle has four sides with the lengths of 5, 6, 5 and 6 centimeters.")
+        self.assertEqual(str(self.r), expected)
+
+    def test_area(self):
+        self.assertEqual(self.r.calculate_area(), 30)
+
+    def test_perimeter(self):
+        self.assertEqual(self.r.calculate_perimeter(), 22)
+
+    def test_non_numeric_length_raises(self):
+        with self.assertRaises(ValueError) as cm:
+            Rectangle("green", "five", 6)
+        self.assertEqual(str(cm.exception), "Length must be numeric.")
+
+    def test_non_numeric_width_raises(self):
+        with self.assertRaises(ValueError) as cm:
+            Rectangle("green", 5, "six")
+        self.assertEqual(str(cm.exception), "Width must be numeric.")
+
+if __name__ == '__main__':
+    unittest.main()

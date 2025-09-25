@@ -51,3 +51,36 @@ class Triangle(Shape):
 
     def calculate_perimeter(self) -> int:
         return self._side_1 + self._side_2 + self._side_3
+    
+    
+import unittest
+import math
+from shape import Triangle
+
+class TestTriangle(unittest.TestCase):
+    def setUp(self):
+        self.t = Triangle("red", 5, 6, 7)
+
+    def test_str(self):
+        expected = "The shape color is red.\nThis triangle has three sides with the lengths of 5, 6 and 7 centimeters."
+        self.assertEqual(str(self.t), expected)
+
+    def test_area(self):
+        expected_area = math.sqrt(9 * (9 - 5) * (9 - 6) * (9 - 7))  # for 5,6,7 -> s=9
+        self.assertAlmostEqual(self.t.calculate_area(), expected_area, places=6)
+
+    def test_perimeter(self):
+        self.assertEqual(self.t.calculate_perimeter(), 18)
+
+    def test_non_numeric_side1_raises(self):
+        with self.assertRaises(ValueError) as cm:
+            Triangle("blue", "a", 2, 3)
+        self.assertEqual(str(cm.exception), "Side 1 must be numeric.")
+
+    def test_triangle_inequality_raises(self):
+        with self.assertRaises(ValueError) as cm:
+            Triangle("green", 1, 2, 3)
+        self.assertEqual(str(cm.exception), "The sides do not satisfy the Triangle Inequality Theorem.")
+
+if __name__ == '__main__':
+    unittest.main()
