@@ -9,8 +9,10 @@ This activity will help to reinforce learning of the Module 2 concepts of:
 
 ## Author
 
-[Your name]
+Jaskarandeep kaur
 
 ## Additional Information
 
-[ Use this space to include additional information that may help in your learning. ]
+- Implemented abstraction via abstract base class `Shape` (ABC).
+- Implemented inheritance: `Triangle` and `Rectangle` inherit from `Shape`.
+- Implemented polymorphism: both subclasses implement `calculate_area()` and `calculate_perimeter()` and override `__str__`.
